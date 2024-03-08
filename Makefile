@@ -10,6 +10,8 @@ NAME := libftprintf.a
 
 LIBFT_DIR := libft
 LIBFT := $(LIBFT_DIR)/libft.a
+HEADER := ft_printf.h
+
 
 all: $(NAME)
 

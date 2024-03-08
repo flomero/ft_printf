@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:57:59 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/07 15:34:07 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/09 00:39:57 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
  * @brief outputs the integer n to the given file descriptor
  * @param n integer to output
  * @param fd file descriptor to output to
+ * @return number of bytes written
  */
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	int		div;
 	char	c;
+	int		size;
 
+	size = 0;
 	div = 1;
 	if (n == -2147483648)
-	{
-		ft_putstr_fd("-2147483648", fd);
-		return ;
-	}
+		return (ft_putstr_fd("-2147483648", fd));
 	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
+		size += ft_putchar_fd('-', fd);
 		n = -n;
 	}
 	while (n / div > 9)
@@ -39,7 +39,8 @@ void	ft_putnbr_fd(int n, int fd)
 	{
 		c = (n / div) + '0';
 		n = n - ((n / div) * div);
-		ft_putchar_fd(c, fd);
+		size += ft_putchar_fd(c, fd);
 		div = div / 10;
 	}
+	return (size);
 }

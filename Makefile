@@ -19,6 +19,8 @@ HEADER := ft_printf.h
 
 all: $(NAME)
 
+bonus: all
+
 $(NAME): $(OBJDIR) $(OFILES) $(LIBFT)
 	ar rcs $@ $(OFILES)
 
@@ -42,4 +44,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

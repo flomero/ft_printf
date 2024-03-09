@@ -4,7 +4,8 @@ CFLAGS = -Wall -Wextra -Werror
 CFILES := \
     ft_printf.c \
     ft_parse_format.c \
-    ft_print_char.c 
+    ft_print_char.c \
+	ft_print_string.c 
 
 OBJDIR := obj
 OFILES := $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:06:36 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/09 02:17:00 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/09 03:15:13 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ t_format	*ft_alloc_format(void);
 
 // Print functions
 int			ft_print_char(t_format *format_info, va_list args);
+int			ft_print_string(t_format *format_info, va_list args);
 
 #endif

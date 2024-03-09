@@ -2,7 +2,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 CFILES := \
-	ft_printf.c
+    ft_printf.c \
+    ft_parse_format.c \
+    ft_print_char.c 
 
 OFILES := $(CFILES:.c=.o)
 
@@ -16,13 +18,14 @@ HEADER := ft_printf.h
 all: $(NAME)
 
 $(NAME): $(OFILES) $(LIBFT)
-	ar rcs $@ $^
+	ar rcs $@ $(OFILES)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
+	cp ./$(LIBFT) ./$(NAME)
 
 $(OFILES): %.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 	rm -f $(OFILES)

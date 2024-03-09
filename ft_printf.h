@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:06:36 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/09 00:45:15 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/09 02:17:00 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,34 @@
 # include <unistd.h>
 
 # define CONVERSIONS "cspdiuxX"
-# define FLAGS "-0.*# +"
+# define FLAGS "#-+ 0"
 
 typedef struct s_flags
 {
-	int	minus;
-	int	zero;
-	int	precision;
-	int	width;
-	int	alternative;
-	int	space;
-	int	plus;
-}		t_flags;
+	int		minus;
+	int		zero;
+	int		alternative;
+	int		space;
+	int		plus;
+}			t_flags;
 
-int		ft_printf(const char *format, ...);
-int		ft_parse_format(const char *format, int *i, va_list args);
+typedef struct s_format
+{
+	t_flags	flags;
+	int		width;
+	int		precision;
+	char	conversion;
+}			t_format;
+
+int			ft_printf(const char *format, ...);
+t_format	*ft_parse_format(const char *format, int *i, va_list args);
+int			ft_print_conversion(t_format *format_info, va_list args);
+int			ft_print_format(const char *format, int *i, va_list args);
+int			ft_get_flag(const char *format, int *i, t_flags *flags);
+void		ft_skip_digits(const char *format, int *i);
+t_format	*ft_alloc_format(void);
+
+// Print functions
+int			ft_print_char(t_format *format_info, va_list args);
 
 #endif

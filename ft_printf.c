@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/09 00:45:40 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/09 03:07:52 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,39 @@ int	ft_printf(const char *format, ...)
 			i++;
 			if (format[i] == '\0')
 				break ;
-			if (format[i] == '%')
+			if (format[i] == '%' && i++)
 				size += ft_putchar_fd('%', 1);
 			else
-				size += ft_parse_format(format, &i, args);
+				size += ft_print_format(format, &i, args);
 		}
 		else
-			size += ft_putchar_fd(format[i], 1);
-		i++;
+			size += ft_putchar_fd(format[i++], 1);
 	}
 	va_end(args);
+	return (size);
+}
+
+int	ft_print_format(const char *format, int *i, va_list args)
+{
+	t_format	*format_info;
+
+	format_info = ft_parse_format(format, i, args);
+	if (format_info == NULL)
+		return (0);
+	if (format[*i] == '\0')
+		return (0);
+	format_info->conversion = format[*i];
+	(*i)++;
+	return (ft_print_conversion(format_info, args));
+}
+
+int	ft_print_conversion(t_format *format_info, va_list args)
+{
+	int	size;
+
+	size = 0;
+	if (format_info->conversion == 'c')
+		size = ft_print_char(format_info, args);
+	free(format_info);
 	return (size);
 }

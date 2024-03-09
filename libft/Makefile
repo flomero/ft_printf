@@ -38,7 +38,8 @@ CFILES := \
 	ft_putchar_fd.c \
 	ft_putstr_fd.c \
 	ft_putendl_fd.c \
-	ft_putnbr_fd.c 
+	ft_putnbr_fd.c \
+	ft_putnbr_base.c
 
 BONUS_CFILES := \
 	ft_lstnew_bonus.c \
@@ -49,7 +50,7 @@ BONUS_CFILES := \
 	ft_lstdelone_bonus.c \
 	ft_lstclear_bonus.c \
 	ft_lstiter_bonus.c \
-	ft_lstmap_bonus.c
+	ft_lstmap_bonus.c 
 
 OFILES := $(CFILES:.c=.o)
 BONUS_OFILES = $(BONUS_CFILES:.c=.o)

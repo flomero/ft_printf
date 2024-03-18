@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:06:36 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 11:38:33 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:28:22 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CONVERSIONS "cspdiuxX"
+# define CONVERSIONS "cspdiuxX%"
 # define FLAGS "#-+ 0"
 
 typedef struct s_flags
@@ -55,6 +55,7 @@ int			ft_print_pointer(t_format *format, va_list args);
 int			ft_print_unsigned(t_format *format_info, va_list args);
 int			ft_print_lowerhex(t_format *format_info, va_list args);
 int			ft_print_upperhex(t_format *format_info, va_list args);
+int			ft_print_percent(t_format *format_info);
 
 // Helper functions
 int			ft_get_numlen(int i);

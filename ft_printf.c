@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 16:28:45 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:28:15 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	ft_printf(const char *format, ...)
 			i++;
 			if (format[i] == '\0')
 				break ;
-			if (format[i] == '%' && i++)
-				size += ft_putchar_fd('%', 1);
 			else
 				size += ft_print_format(format, &i, args);
 		}
@@ -81,6 +79,8 @@ int	ft_print_conversion(t_format *format_info, va_list args)
 		size = ft_print_lowerhex(format_info, args);
 	else if (format_info->conversion == 'X')
 		size = ft_print_upperhex(format_info, args);
+	else if (format_info->conversion == '%')
+		size = ft_print_percent(format_info);
 	free(format_info);
 	return (size);
 }

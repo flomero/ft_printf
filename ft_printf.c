@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 09:32:12 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:08:40 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int	ft_print_conversion(t_format *format_info, va_list args)
 		size = ft_print_pointer(format_info, args);
 	else if (format_info->conversion == 'u')
 		size = ft_print_unsigned(format_info, args);
+	else if (format_info->conversion == 'x')
+		size = ft_print_lowerhex(format_info, args);
+	else if (format_info->conversion == 'X')
+		size = ft_print_upperhex(format_info, args);
 	free(format_info);
 	return (size);
 }

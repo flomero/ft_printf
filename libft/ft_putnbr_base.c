@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 12:58:34 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 11:51:04 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:43:36 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_putnbr_base(long nbr, char *base)
 	len = ft_strlen(base);
 	if (nbr < 0)
 		size += ft_putchar_fd('-', 1);
-	if (nbr == LONG_MIN)
+	if (nbr == (long)LONG_MIN)
 	{
 		size += ft_putnbr_base(-(nbr / len), base);
 		size += ft_putnbr_base(-(nbr % len), base);

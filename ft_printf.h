@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:06:36 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/09 13:07:32 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 09:54:12 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,10 @@ int			ft_print_char(t_format *format_info, va_list args);
 int			ft_print_string(t_format *format_info, va_list args);
 int			ft_print_decnum(t_format *format_info, va_list args);
 int			ft_print_pointer(t_format *format, va_list args);
+int			ft_print_unsigned(t_format *format_info, va_list args);
+
+// Helper functions
+int			ft_get_numlen(int i);
+int			ft_power(int nb, int power);
 
 #endif

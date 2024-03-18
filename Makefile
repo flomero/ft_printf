@@ -8,6 +8,7 @@ CFILES := \
 	ft_print_string.c \
 	ft_print_decnum.c \
 	ft_print_pointer.c \
+	ft_print_unsigned.c \
 
 OBJDIR := obj
 OFILES := $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

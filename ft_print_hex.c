@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:01:14 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 14:18:15 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:40:03 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
 		size += ft_print_hex_minus(format_info, num, base, prefix);
 	else
 	{
-		if (format_info->flags.zero)
+		while (format_info->precision-- > ft_get_hexlen(num))
+			size += ft_putchar_fd('0', 1);
+		if (format_info->flags.zero && format_info->precision < 0)
 		{
 			size += ft_putstr_fd(prefix, 1);
 			size += ft_putnchr_fd('0', format_info->width - ft_get_hexlen(num)

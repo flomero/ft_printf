@@ -6,11 +6,12 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:26:45 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 19:21:38 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:59:56 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 int	ft_get_numlen(int i)
 {
@@ -64,7 +65,7 @@ int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 	{
 		size += ft_putnbr_fd(num, 1);
 	}
-	while (format_info->width-- > numlen)
+	while (size < format_info->width)
 		size += ft_putchar_fd(' ', 1);
 	return (size);
 }
@@ -74,19 +75,26 @@ int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
 	int	size;
 
 	size = 0;
-	while (!format_info->flags.zero && format_info->width-- > numlen)
+	if (num < 0)
+		format_info->precision++;
+	while (format_info->width > format_info->precision
+		&& format_info->precision > 0 && format_info->width-- > numlen)
+		size += ft_putchar_fd(' ', 1);
+	while (!format_info->flags.zero && format_info->width-- > numlen
+		&& ((format_info->precision < 0 || (num < 0
+					&& format_info->precision == 0))
+			|| format_info->precision < numlen))
 		size += ft_putchar_fd(' ', 1);
 	if (format_info->flags.plus && num >= 0)
 		size += ft_putchar_fd('+', 1);
 	if (num < 0 && num != INT_MIN)
 	{
 		size += ft_putchar_fd('-', 1);
-		format_info->precision++;
 		num = -num;
 	}
 	while (format_info->flags.zero && format_info->width-- > numlen)
 		size += ft_putchar_fd('0', 1);
-	while (format_info->precision-- > numlen)
+	while (format_info->precision-- > numlen && !format_info->flags.zero)
 		size += ft_putchar_fd('0', 1);
 	if (num == 0)
 		size += ft_putchar_fd('0', 1);
@@ -104,6 +112,12 @@ int	ft_print_decnum(t_format *format_info, va_list args)
 	size = 0;
 	num = va_arg(args, int);
 	numlen = ft_get_numlen(num);
+	if (format_info->precision == 0 && num == 0)
+	{
+		while (format_info->width-- > 0)
+			size += ft_putchar_fd(' ', 1);
+		return (size);
+	}
 	if (format_info->flags.space && !format_info->flags.plus && num >= 0)
 		size += ft_putchar_fd(' ', 1);
 	if (format_info->flags.minus)

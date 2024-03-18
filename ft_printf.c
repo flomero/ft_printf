@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 20:26:38 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 21:59:19 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	ft_print_conversion(t_format *format_info, va_list args)
 			|| format_info->conversion == 'i'))
 	{
 		va_arg(args, char *);
+		while (format_info->width-- > 0)
+			size += ft_putchar_fd(' ', 1);
 		free(format_info);
 		return (0);
 	}

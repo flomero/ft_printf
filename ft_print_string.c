@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:13:22 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 16:50:24 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:46:01 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,26 @@ int	ft_putnstr_fd(char *str, int n, int fd)
 	return (i);
 }
 
+int	ft_print_string_precision(t_format *format_info, char *str, int *space)
+{
+	int	size;
+
+	*space = ft_strlen(str);
+	size = 0;
+	if (format_info->precision >= 0
+		&& (size_t)format_info->precision < ft_strlen(str))
+		*space = format_info->precision;
+	if (format_info->flags.minus)
+		size += ft_putnstr_fd(str, *space, 1);
+	while (format_info->width > format_info->precision
+		&& format_info->width > *space)
+	{
+		size += ft_putchar_fd(' ', 1);
+		format_info->width--;
+	}
+	return (size);
+}
+
 int	ft_print_string(t_format *format_info, va_list args)
 {
 	int		size;
@@ -36,11 +56,7 @@ int	ft_print_string(t_format *format_info, va_list args)
 	if (str == NULL)
 		str = "(null)";
 	space = ft_strlen(str);
-	if (format_info->precision >= 0
-		&& (size_t)format_info->precision < ft_strlen(str))
-		space = format_info->precision;
-	if (format_info->flags.minus)
-		size += ft_putnstr_fd(str, space, 1);
+	size += ft_print_string_precision(format_info, str, &space);
 	while ((size_t)format_info->width > ft_strlen(str))
 	{
 		if (format_info->flags.zero && !format_info->flags.minus)

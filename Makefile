@@ -49,7 +49,7 @@ re: fclean all
 
 test: all
 	cc -o test.out main.c -L. libftprintf.a
-	./test.out
+	./test.out | cat -e
 .SILENT: test
 
 .PHONY: all clean fclean re bonus

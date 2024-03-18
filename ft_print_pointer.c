@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 12:57:02 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 12:01:40 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:54:32 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	ft_print_pointer_minus(t_format *format, unsigned long pointer)
 	int	size;
 
 	size = 0;
-	ft_putstr_fd("0x", 1);
-	ft_putnchr_fd('0', format->precision - size + 2, 1);
+	size += ft_putstr_fd("0x", 1);
+	size += ft_putnchr_fd('0', format->precision - size, 1);
 	if (!(format->precision == 0 && pointer == 0))
-		ft_print_pointer_hex(pointer);
-	ft_putnchr_fd(' ', format->width - size, 1);
+		size += ft_print_pointer_hex(pointer);
+	size += ft_putnchr_fd(' ', format->width - size, 1);
 	return (size);
 }
 
@@ -70,20 +70,16 @@ int	ft_print_pointer(t_format *format, va_list args)
 	int				size;
 
 	pointer = (unsigned long)va_arg(args, long);
-	size = ft_numlen_base(pointer, 16) + 2;
-	if (format->precision > size - 2)
-		size = format->precision + 2;
-	if (format->precision == 0 && pointer == 0)
-		size = 2;
+	size = 0;
 	if (format->flags.minus)
 		size += ft_print_pointer_minus(format, pointer);
 	else
 	{
-		ft_putnchr_fd(' ', format->width - size, 1);
-		ft_putstr_fd("0x", 1);
-		ft_putnchr_fd('0', format->precision - size + 2, 1);
+		size += ft_putnchr_fd(' ', format->width - size - 2, 1);
+		size += ft_putstr_fd("0x", 1);
+		size += ft_putnchr_fd('0', format->precision - (size + 2), 1);
 		if (!(format->precision == 0 && pointer == 0))
-			ft_print_pointer_hex(pointer);
+			size += ft_print_pointer_hex(pointer);
 	}
 	return (size);
 }

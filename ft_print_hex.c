@@ -6,11 +6,41 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:01:14 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 10:27:41 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:13:27 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
+		char *prefix)
+{
+	int	size;
+
+	size = 0;
+	if (format_info->flags.minus)
+	{
+		size += ft_putstr_fd(prefix, 1);
+		size += ft_putnbr_base(num, base);
+	}
+	else
+	{
+		if (format_info->flags.zero)
+		{
+			size += ft_putstr_fd(prefix, 1);
+			size += ft_putnchr_fd('0', format_info->width - ft_get_numlen(num),
+					1);
+		}
+		else
+		{
+			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num),
+					1);
+			size += ft_putstr_fd(prefix, 1);
+		}
+		size += ft_putnbr_base(num, base);
+	}
+	return (size);
+}
 
 int	ft_print_lowerhex(t_format *format_info, va_list args)
 {
@@ -19,30 +49,10 @@ int	ft_print_lowerhex(t_format *format_info, va_list args)
 
 	size = 0;
 	num = (unsigned int)va_arg(args, int);
-	if (format_info->flags.minus)
-	{
-		if (format_info->conversion)
-			size += ft_putstr_fd("0x", 1);
-		size += ft_putnbr_base(num, "0123456789abcdef");
-	}
+	if (format_info->flags.alternative)
+		size += ft_print_hex(format_info, num, "0123456789abcdef", "0x");
 	else
-	{
-		if (format_info->flags.zero)
-		{
-			if (format_info->flags.alternative)
-				size += ft_putstr_fd("0x", 1);
-			size += ft_putnchr_fd('0', format_info->width - ft_get_numlen(num),
-					1);
-		}
-		else
-		{
-			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num),
-					1);
-			if (format_info->flags.alternative)
-				size += ft_putstr_fd("0x", 1);
-		}
-		size += ft_putnbr_base(num, "0123456789abcdef");
-	}
+		size += ft_print_hex(format_info, num, "0123456789abcdef", "");
 	return (size);
 }
 
@@ -53,29 +63,9 @@ int	ft_print_upperhex(t_format *format_info, va_list args)
 
 	size = 0;
 	num = (unsigned int)va_arg(args, int);
-	if (format_info->flags.minus)
-	{
-		if (format_info->conversion)
-			size += ft_putstr_fd("0X", 1);
-		size += ft_putnbr_base(num, "0123456789ABCDEF");
-	}
+	if (format_info->flags.alternative)
+		size += ft_print_hex(format_info, num, "0123456789ABCDEF", "0X");
 	else
-	{
-		if (format_info->flags.zero)
-		{
-			if (format_info->flags.alternative)
-				size += ft_putstr_fd("0X", 1);
-			size += ft_putnchr_fd('0', format_info->width - ft_get_numlen(num),
-					1);
-		}
-		else
-		{
-			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num),
-					1);
-			if (format_info->flags.alternative)
-				size += ft_putstr_fd("0X", 1);
-		}
-		size += ft_putnbr_base(num, "0123456789ABCDEF");
-	}
+		size += ft_print_hex(format_info, num, "0123456789ABCDEF", "");
 	return (size);
 }

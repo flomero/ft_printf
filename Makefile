@@ -25,12 +25,12 @@ all: $(NAME)
 
 bonus: all
 
-$(NAME): $(OBJDIR) $(OFILES) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJDIR) $(OFILES)
+	cp $(LIBFT) $(NAME)
 	ar rcs $@ $(OFILES)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
-	cp $(LIBFT) $(NAME)
 
 $(OBJDIR)/%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -I. -c $< -o $@
@@ -48,9 +48,6 @@ fclean: clean
 
 re: fclean all
 
-test: all
-	cc -o test.out main.c -L. libftprintf.a
-	./test.out | cat -e
 .SILENT: test
 
 .PHONY: all clean fclean re bonus

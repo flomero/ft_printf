@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:26:45 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 16:25:15 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:17:16 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 	size = 0;
 	if (format_info->flags.plus && num >= 0)
 		size += ft_putchar_fd('+', 1);
-	if (num < 0 && num != INT_MIN)
+	if (num < 0)
 	{
 		size += ft_putchar_fd('-', 1);
 		format_info->precision++;
@@ -61,10 +61,10 @@ int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 		size += ft_putchar_fd('0', 1);
 	if (num == 0)
 		size += ft_putchar_fd('0', 1);
+	else if (num == (long)INT_MAX + 1)
+		size += ft_putstr_fd("2147483648", 1);
 	else
-	{
 		size += ft_putnbr_fd(num, 1);
-	}
 	while (size < format_info->width)
 		size += ft_putchar_fd(' ', 1);
 	return (size);
@@ -89,7 +89,7 @@ int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
 		size += ft_putchar_fd(' ', 1);
 	if (format_info->flags.plus && num >= 0)
 		size += ft_putchar_fd('+', 1);
-	if (num < 0 && num != INT_MIN)
+	if (num < 0)
 	{
 		size += ft_putchar_fd('-', 1);
 		num = -num;
@@ -103,6 +103,8 @@ int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
 		size += ft_putchar_fd('0', 1);
 	if (num == 0)
 		size += ft_putchar_fd('0', 1);
+	else if (num == (long)INT_MAX + 1)
+		size += ft_putstr_fd("2147483648", 1);
 	else
 		size += ft_putnbr_fd(num, 1);
 	return (size);

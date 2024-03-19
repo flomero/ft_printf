@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:26:45 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 16:19:09 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:25:15 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 	int	size;
 
 	size = 0;
-	format_info->width -= format_info->flags.space;
 	if (format_info->flags.plus && num >= 0)
 		size += ft_putchar_fd('+', 1);
 	if (num < 0 && num != INT_MIN)
@@ -78,6 +77,8 @@ int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
 	size = 0;
 	if (num < 0)
 		format_info->precision++;
+	if (format_info->flags.plus && num >= 0)
+		format_info->width--;
 	while (format_info->width > format_info->precision
 		&& format_info->precision > 0 && format_info->width-- > numlen)
 		size += ft_putchar_fd(' ', 1);

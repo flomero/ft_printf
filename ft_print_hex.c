@@ -6,24 +6,11 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:01:14 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 16:31:33 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 00:03:07 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_get_hexlen(unsigned int num)
-{
-	int	size;
-
-	size = 1;
-	while (num >= 16)
-	{
-		num /= 16;
-		size++;
-	}
-	return (size);
-}
 
 int	ft_print_hex_minus(t_format *format_info, unsigned int num, char *base,
 		char *prefix)
@@ -38,7 +25,7 @@ int	ft_print_hex_minus(t_format *format_info, unsigned int num, char *base,
 	return (size);
 }
 
-int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
+int	ft_print_hex_nominus(t_format *format_info, unsigned int num, char *base,
 		char *prefix)
 {
 	int	size;
@@ -46,29 +33,36 @@ int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
 	int	zeros;
 
 	size = 0;
+	if (format_info->flags.zero && format_info->precision == -1)
+	{
+		size += ft_putstr_fd(prefix, 1);
+		zeros = format_info->width - ft_get_hexlen(num) - ft_strlen(prefix);
+		size += ft_putnchr_fd('0', zeros, 1);
+	}
+	else
+	{
+		if (format_info->precision > ft_get_hexlen(num))
+			spaces = format_info->width - format_info->precision;
+		else
+			spaces = format_info->width - ft_get_hexlen(num);
+		size += ft_putnchr_fd(' ', spaces - ft_strlen(prefix), 1);
+		size += ft_putstr_fd(prefix, 1);
+	}
+	size += ft_putnchr_fd('0', format_info->precision - ft_get_hexlen(num), 1);
+	size += ft_putnbr_base(num, base);
+	return (size);
+}
+
+int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
+		char *prefix)
+{
+	int	size;
+
+	size = 0;
 	if (format_info->flags.minus)
 		size += ft_print_hex_minus(format_info, num, base, prefix);
 	else
-	{
-		if (format_info->flags.zero && format_info->precision == -1)
-		{
-			size += ft_putstr_fd(prefix, 1);
-			zeros = format_info->width - ft_get_hexlen(num) - ft_strlen(prefix);
-			size += ft_putnchr_fd('0', zeros, 1);
-		}
-		else
-		{
-			if (format_info->precision > ft_get_hexlen(num))
-				spaces = format_info->width - format_info->precision;
-			else
-				spaces = format_info->width - ft_get_hexlen(num);
-			size += ft_putnchr_fd(' ', spaces - ft_strlen(prefix), 1);
-			size += ft_putstr_fd(prefix, 1);
-		}
-		size += ft_putnchr_fd('0', format_info->precision - ft_get_hexlen(num),
-				1);
-		size += ft_putnbr_base(num, base);
-	}
+		size += ft_print_hex_nominus(format_info, num, base, prefix);
 	return (size);
 }
 

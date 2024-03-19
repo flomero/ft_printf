@@ -11,6 +11,7 @@ CFILES := \
 	ft_print_unsigned.c \
 	ft_print_hex.c \
 	ft_print_percent.c \
+	ft_utils.c \
 
 OBJDIR := obj
 OFILES := $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:01:14 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 10:27:28 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 10:31:29 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,12 @@ int	ft_print_lowerhex(t_format *format_info, va_list args)
 
 	size = 0;
 	num = (unsigned int)va_arg(args, int);
+	if (format_info->precision == 0 && num == 0)
+	{
+		while (format_info->width-- > 0)
+			size += ft_putchar_fd(' ', 1);
+		return (size);
+	}
 	if (format_info->flags.alternative && num != 0)
 		size += ft_print_hex(format_info, num, "0123456789abcdef", "0x");
 	else
@@ -92,6 +98,12 @@ int	ft_print_upperhex(t_format *format_info, va_list args)
 
 	size = 0;
 	num = (unsigned int)va_arg(args, int);
+	if (format_info->precision == 0 && num == 0)
+	{
+		while (format_info->width-- > 0)
+			size += ft_putchar_fd(' ', 1);
+		return (size);
+	}
 	if (format_info->flags.alternative && num != 0)
 		size += ft_print_hex(format_info, num, "0123456789ABCDEF", "0X");
 	else

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:01:14 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 22:30:45 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 10:27:28 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,32 +42,30 @@ int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
 		char *prefix)
 {
 	int	size;
+	int	spaces;
+	int	zeros;
 
 	size = 0;
 	if (format_info->flags.minus)
 		size += ft_print_hex_minus(format_info, num, base, prefix);
 	else
 	{
-		if (format_info->precision > ft_get_hexlen(num))
-			format_info->width -= format_info->precision - ft_get_hexlen(num);
-		while (format_info->width > ft_get_hexlen(num) + (int)ft_strlen(prefix)
-			+ size && !format_info->flags.zero && !format_info->flags.minus)
-			size += ft_putchar_fd(' ', 1);
-		while (format_info->precision-- > ft_get_hexlen(num))
-			size += ft_putchar_fd('0', 1);
-		if (format_info->flags.zero && format_info->precision < 0)
+		if (format_info->flags.zero && format_info->precision == -1)
 		{
-			size += ft_putstr_fd(prefix, 1);
-			size += ft_putnchr_fd('0', format_info->width - ft_get_hexlen(num)
-					- ft_strlen(prefix), 1);
+			zeros = format_info->width - ft_get_hexlen(num) - ft_strlen(prefix);
+			size += ft_putnchr_fd('0', zeros, 1);
 		}
 		else
 		{
-			if (format_info->width > ft_get_hexlen(num))
-				size += ft_putnchr_fd(' ', format_info->width
-						- ft_get_hexlen(num) - size, 1);
-			size += ft_putstr_fd(prefix, 1);
+			if (format_info->precision > ft_get_hexlen(num))
+				spaces = format_info->width - format_info->precision;
+			else
+				spaces = format_info->width - ft_get_hexlen(num);
+			size += ft_putnchr_fd(' ', spaces, 1);
 		}
+		size += ft_putstr_fd(prefix, 1);
+		size += ft_putnchr_fd('0', format_info->precision - ft_get_hexlen(num),
+				1);
 		size += ft_putnbr_base(num, base);
 	}
 	return (size);

@@ -6,43 +6,12 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:26:45 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 18:17:16 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 00:08:21 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
-
-int	ft_get_numlen(int i)
-{
-	int	size;
-
-	size = 1;
-	if (i == INT_MIN)
-		return (11);
-	if (i == 0)
-		return (1);
-	if (i < 0)
-	{
-		size++;
-		i = -i;
-	}
-	while (i >= 10)
-	{
-		i /= 10;
-		size++;
-	}
-	return (size);
-}
-
-int	ft_power(int nb, int power)
-{
-	if (power < 0)
-		return (0);
-	if (power == 0)
-		return (1);
-	return (nb * ft_power(nb, power - 1));
-}
 
 int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 {
@@ -70,7 +39,8 @@ int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 	return (size);
 }
 
-int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
+int	ft_print_decnum_nominus_prefix(t_format *format_info, long long num,
+		int numlen)
 {
 	int	size;
 
@@ -89,6 +59,15 @@ int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
 		size += ft_putchar_fd(' ', 1);
 	if (format_info->flags.plus && num >= 0)
 		size += ft_putchar_fd('+', 1);
+	return (size);
+}
+
+int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
+{
+	int	size;
+
+	size = 0;
+	size += ft_print_decnum_nominus_prefix(format_info, num, numlen);
 	if (num < 0)
 	{
 		size += ft_putchar_fd('-', 1);

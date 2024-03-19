@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 23:55:12 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 00:37:20 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,69 +71,15 @@ int	ft_print_format(const char *format, int *i, va_list args)
 int	ft_print_conversion(t_format *format_info, va_list args)
 {
 	int	size;
-	int	num;
 
 	size = 0;
-	if (format_info->precision == 0 && (format_info->conversion == 'd'
-			|| format_info->conversion == 'i'))
-	{
-		num = va_arg(args, int);
-		if (num == 0)
-		{
-			if (format_info->flags.space && !format_info->flags.plus
-				&& !format_info->width)
-				size += ft_putchar_fd(' ', 1);
-			if (format_info->flags.plus && format_info->flags.minus)
-				size += ft_putchar_fd('+', 1);
-			size += ft_putnchr_fd(' ', format_info->width
-					- format_info->flags.plus, 1);
-			if (format_info->flags.plus && !format_info->flags.minus)
-				size += ft_putchar_fd('+', 1);
-			free(format_info);
-			return (size);
-		}
-		if (num < 0)
-			format_info->flags.plus = 0;
-		if (num >= 0 && format_info->flags.space)
-		{
-			size += ft_putchar_fd(' ', 1);
-			if (format_info->width)
-				format_info->width--;
-		}
-		if (format_info->flags.plus && num >= 0 && !format_info->width)
-			size += ft_putchar_fd('+', 1);
-		if (num && !format_info->width)
-			size += ft_putnbr_fd(num, 1);
-		else if (format_info->width && !num)
-		{
-			size += ft_putnchr_fd(' ', format_info->width
-					- format_info->flags.plus, 1);
-			if (format_info->flags.plus)
-				size += ft_putchar_fd('+', 1);
-		}
-		else if (format_info->width && num && format_info->flags.minus)
-		{
-			if (format_info->flags.plus && num >= 0)
-				size += ft_putchar_fd('+', 1);
-			size += ft_putnbr_fd(num, 1);
-			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num)
-					- format_info->flags.plus, 1);
-		}
-		else if (format_info->width && num && !format_info->flags.minus)
-		{
-			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num)
-					- format_info->flags.plus, 1);
-			if (format_info->flags.plus && num >= 0)
-				size += ft_putchar_fd('+', 1);
-			size += ft_putnbr_fd(num, 1);
-		}
-		free(format_info);
-		return (size);
-	}
 	if (format_info->conversion == 'c')
 		size = ft_print_char(format_info, args);
 	else if (format_info->conversion == 's')
 		size = ft_print_string(format_info, args);
+	else if (!format_info->precision && (format_info->conversion == 'd'
+			|| format_info->conversion == 'i'))
+		size = ft_print_num_nopre(format_info, args);
 	else if (format_info->conversion == 'd' || format_info->conversion == 'i')
 		size = ft_print_decnum(format_info, args);
 	else if (format_info->conversion == 'p')

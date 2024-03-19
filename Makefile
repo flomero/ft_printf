@@ -7,6 +7,7 @@ CFILES := \
     ft_print_char.c \
 	ft_print_string.c \
 	ft_print_decnum.c \
+	ft_print_num_nopre.c \
 	ft_print_pointer.c \
 	ft_print_unsigned.c \
 	ft_print_hex.c \

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:06:36 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/20 00:03:29 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 00:14:34 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_format	*ft_alloc_format(void);
 int			ft_print_char(t_format *format_info, va_list args);
 int			ft_print_string(t_format *format_info, va_list args);
 int			ft_print_decnum(t_format *format_info, va_list args);
+int			ft_print_num_nopre(t_format *format_info, va_list args);
 int			ft_print_pointer(t_format *format, va_list args);
 int			ft_print_unsigned(t_format *format_info, va_list args);
 int			ft_print_lowerhex(t_format *format_info, va_list args);

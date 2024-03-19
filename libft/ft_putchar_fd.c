@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 16:50:21 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/09 00:35:46 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:51:44 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,25 @@
  */
 int	ft_putchar_fd(char c, int fd)
 {
-	return (write(fd, &c, 1));
+	int	status;
+	int	*error;
+
+	status = 0;
+	error = get_write_error();
+	if (*error != 1)
+	{
+		status = write(fd, &c, 1);
+		if (status == -1)
+		{
+			*error = 1;
+		}
+	}
+	return (status);
+}
+
+int	*get_write_error(void)
+{
+	static int	status;
+
+	return (&status);
 }

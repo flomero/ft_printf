@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:30:10 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 20:08:42 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 23:57:31 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,29 @@ int	ft_print_uns_minus(t_format *format_info, unsigned int num, int numlen)
 	return (size);
 }
 
+int	ft_print_uns_nominus(t_format *format_info, unsigned int num, int numlen)
+{
+	int	size;
+
+	size = 0;
+	while (format_info->width > format_info->precision
+		&& format_info->precision > 0 && format_info->width-- > numlen)
+		size += ft_putchar_fd(' ', 1);
+	if (num == 0 && format_info->precision == 0 && format_info->width > 0)
+		size += ft_putchar_fd(' ', 1);
+	while ((!format_info->flags.zero || (format_info->flags.zero
+				&& !format_info->precision)) && format_info->width-- > numlen
+		&& (format_info->precision < 0 || format_info->precision < numlen))
+		size += ft_putchar_fd(' ', 1);
+	while (format_info->precision-- > numlen || (format_info->flags.zero
+			&& format_info->width-- > numlen && format_info->precision < 0))
+		size += ft_putchar_fd('0', 1);
+	if (num == 0 && format_info->precision == -1)
+		return (size);
+	size += ft_putunbr_fd(num, 1);
+	return (size);
+}
+
 int	ft_print_unsigned(t_format *format_info, va_list args)
 {
 	unsigned int	num;
@@ -75,23 +98,6 @@ int	ft_print_unsigned(t_format *format_info, va_list args)
 	if (format_info->flags.minus)
 		size += ft_print_uns_minus(format_info, num, numlen);
 	else
-	{
-		while (format_info->width > format_info->precision
-			&& format_info->precision > 0 && format_info->width-- > numlen)
-			size += ft_putchar_fd(' ', 1);
-		if (num == 0 && format_info->precision == 0 && format_info->width > 0)
-			size += ft_putchar_fd(' ', 1);
-		while ((!format_info->flags.zero || (format_info->flags.zero
-					&& !format_info->precision))
-			&& format_info->width-- > numlen && (format_info->precision < 0
-				|| format_info->precision < numlen))
-			size += ft_putchar_fd(' ', 1);
-		while (format_info->precision-- > numlen || (format_info->flags.zero
-				&& format_info->width-- > numlen && format_info->precision < 0))
-			size += ft_putchar_fd('0', 1);
-		if (num == 0 && format_info->precision == -1)
-			return (size);
-		size += ft_putnbr_base(num, "0123456789");
-	}
+		size += ft_print_uns_nominus(format_info, num, numlen);
 	return (size);
 }

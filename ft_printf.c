@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 11:22:58 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:43:24 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,13 @@ int	ft_print_conversion(t_format *format_info, va_list args)
 			size += ft_putnbr_fd(num, 1);
 		else if (format_info->width && !num)
 			size += ft_putnchr_fd(' ', format_info->width, 1);
-		else if (format_info->width && num)
+		else if (format_info->width && num && format_info->flags.minus)
+		{
+			size += ft_putnbr_fd(num, 1);
+			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num),
+					1);
+		}
+		else if (format_info->width && num && !format_info->flags.minus)
 		{
 			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num),
 					1);

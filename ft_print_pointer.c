@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 12:57:02 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 13:54:32 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:42:37 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,18 @@ int	ft_print_pointer(t_format *format, va_list args)
 {
 	unsigned long	pointer;
 	int				size;
+	int				numlen;
 
 	pointer = (unsigned long)va_arg(args, long);
+	numlen = ft_numlen_base(pointer, 16);
+	if (format->precision > numlen)
+		numlen = format->precision;
 	size = 0;
 	if (format->flags.minus)
 		size += ft_print_pointer_minus(format, pointer);
 	else
 	{
-		size += ft_putnchr_fd(' ', format->width - size - 2, 1);
+		size += ft_putnchr_fd(' ', format->width - numlen - 2, 1);
 		size += ft_putstr_fd("0x", 1);
 		size += ft_putnchr_fd('0', format->precision - (size + 2), 1);
 		if (!(format->precision == 0 && pointer == 0))

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:13:22 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 19:46:01 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 23:53:47 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_print_string(t_format *format_info, va_list args)
 	str = va_arg(args, char *);
 	if (str == NULL)
 		str = "(null)";
+	if (format_info->precision == 0)
+		str = "";
 	space = ft_strlen(str);
 	size += ft_print_string_precision(format_info, str, &space);
 	while ((size_t)format_info->width > ft_strlen(str))

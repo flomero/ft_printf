@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:30:10 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 11:28:28 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:31:11 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ int	ft_print_uns_minus(t_format *format_info, unsigned int num, int numlen)
 	int	size;
 
 	size = 0;
+	if (num == 0 && format_info->precision == 0)
+	{
+		while (size < format_info->width)
+			size += ft_putchar_fd(' ', 1);
+		return (size);
+	}
 	while (format_info->precision-- > numlen || (format_info->flags.zero
 			&& format_info->width-- > numlen))
 		size += ft_putchar_fd('0', 1);

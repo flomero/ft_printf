@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 21:59:19 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:22:58 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,25 @@ int	ft_print_format(const char *format, int *i, va_list args)
 int	ft_print_conversion(t_format *format_info, va_list args)
 {
 	int	size;
+	int	num;
 
 	size = 0;
 	if (format_info->precision == 0 && (format_info->conversion == 'd'
 			|| format_info->conversion == 'i'))
 	{
-		va_arg(args, char *);
-		while (format_info->width-- > 0)
-			size += ft_putchar_fd(' ', 1);
+		num = va_arg(args, int);
+		if (num && !format_info->width)
+			size += ft_putnbr_fd(num, 1);
+		else if (format_info->width && !num)
+			size += ft_putnchr_fd(' ', format_info->width, 1);
+		else if (format_info->width && num)
+		{
+			size += ft_putnchr_fd(' ', format_info->width - ft_get_numlen(num),
+					1);
+			size += ft_putnbr_fd(num, 1);
+		}
 		free(format_info);
-		return (0);
+		return (size);
 	}
 	if (format_info->precision == 0 && format_info->conversion == 's')
 	{

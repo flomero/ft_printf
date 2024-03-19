@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:30:10 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 22:06:48 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 11:28:28 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,15 @@ int	ft_print_unsigned(t_format *format_info, va_list args)
 		while (format_info->width > format_info->precision
 			&& format_info->precision > 0 && format_info->width-- > numlen)
 			size += ft_putchar_fd(' ', 1);
+		if (num == 0 && format_info->precision == 0 && format_info->width > 0)
+			size += ft_putchar_fd(' ', 1);
 		while (!format_info->flags.zero && format_info->width-- > numlen
 			&& ((format_info->precision < 0 || (num < 0
 						&& format_info->precision == 0))
 				|| format_info->precision < numlen))
 			size += ft_putchar_fd(' ', 1);
 		while (format_info->precision-- > numlen || (format_info->flags.zero
-				&& format_info->width-- > numlen))
+				&& format_info->width-- > numlen && format_info->precision < 0))
 			size += ft_putchar_fd('0', 1);
 		if (num == 0 && format_info->precision == -1)
 			return (size);

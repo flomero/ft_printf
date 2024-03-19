@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:26:45 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 21:59:56 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 12:30:00 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,11 @@ int	ft_print_decnum_nominus(t_format *format_info, long long num, int numlen)
 		num = -num;
 	}
 	while (format_info->flags.zero && format_info->width-- > numlen)
+	{
 		size += ft_putchar_fd('0', 1);
-	while (format_info->precision-- > numlen && !format_info->flags.zero)
+		format_info->precision--;
+	}
+	while (format_info->precision-- > numlen)
 		size += ft_putchar_fd('0', 1);
 	if (num == 0)
 		size += ft_putchar_fd('0', 1);

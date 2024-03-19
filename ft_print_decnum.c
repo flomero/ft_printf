@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:26:45 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 13:10:57 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 13:17:58 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 
 	size = 0;
 	if (format_info->flags.space && format_info->precision < format_info->width
-		&& num >= 0)
+		&& num >= 0 && format_info->precision != 0
+		&& format_info->width > numlen)
 		size += ft_putchar_fd(' ', 1);
 	if (format_info->flags.plus && num >= 0)
 		size += ft_putchar_fd('+', 1);

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:01:14 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 10:31:29 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:31:33 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
 	{
 		if (format_info->flags.zero && format_info->precision == -1)
 		{
+			size += ft_putstr_fd(prefix, 1);
 			zeros = format_info->width - ft_get_hexlen(num) - ft_strlen(prefix);
 			size += ft_putnchr_fd('0', zeros, 1);
 		}
@@ -61,9 +62,9 @@ int	ft_print_hex(t_format *format_info, unsigned int num, char *base,
 				spaces = format_info->width - format_info->precision;
 			else
 				spaces = format_info->width - ft_get_hexlen(num);
-			size += ft_putnchr_fd(' ', spaces, 1);
+			size += ft_putnchr_fd(' ', spaces - ft_strlen(prefix), 1);
+			size += ft_putstr_fd(prefix, 1);
 		}
-		size += ft_putstr_fd(prefix, 1);
 		size += ft_putnchr_fd('0', format_info->precision - ft_get_hexlen(num),
 				1);
 		size += ft_putnbr_base(num, base);

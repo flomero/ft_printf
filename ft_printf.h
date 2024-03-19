@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:06:36 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 19:28:22 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 22:27:58 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_format
 }			t_format;
 
 int			ft_printf(const char *format, ...);
+int			ft_print_loop(const char *format, va_list args);
 t_format	*ft_parse_format(const char *format, int *i, va_list args);
 int			ft_print_conversion(t_format *format_info, va_list args);
 int			ft_print_format(const char *format, int *i, va_list args);

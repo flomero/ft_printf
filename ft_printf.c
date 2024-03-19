@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 20:35:12 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 23:20:29 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,26 @@
 int	ft_printf(const char *format, ...)
 {
 	int		size;
-	int		new;
-	int		i;
-	int		*error;
 	va_list	args;
 
 	va_start(args, format);
+	set_write_error(0);
+	size = ft_print_loop(format, args);
+	if (*get_write_error() == 1)
+		return (-1);
+	va_end(args);
+	return (size);
+}
+
+int	ft_print_loop(const char *format, va_list args)
+{
+	int	size;
+	int	new;
+	int	i;
+
 	i = 0;
 	size = 0;
 	new = 0;
-	error = get_write_error();
-	*error = 0;
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
@@ -42,9 +51,6 @@ int	ft_printf(const char *format, ...)
 			return (-1);
 		size += new;
 	}
-	if (*error)
-		return (-1);
-	va_end(args);
 	return (size);
 }
 

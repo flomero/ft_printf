@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 18:49:37 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:19:42 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 int	ft_printf(const char *format, ...)
 {
 	int		size;
+	int		new;
 	int		i;
 	va_list	args;
 
 	va_start(args, format);
 	i = 0;
 	size = 0;
+	new = 0;
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
@@ -29,10 +31,13 @@ int	ft_printf(const char *format, ...)
 			if (format[i] == '\0')
 				break ;
 			else
-				size += ft_print_format(format, &i, args);
+				new = ft_print_format(format, &i, args);
 		}
 		else
-			size += ft_putchar_fd(format[i++], 1);
+			new = ft_putchar_fd(format[i++], 1);
+		if (new == -1)
+			return (-1);
+		size += new;
 	}
 	va_end(args);
 	return (size);
@@ -44,7 +49,7 @@ int	ft_print_format(const char *format, int *i, va_list args)
 
 	format_info = ft_parse_format(format, i, args);
 	if (format_info == NULL)
-		return (0);
+		return (-1);
 	if (format[*i] == '\0')
 		return (0);
 	format_info->conversion = format[*i];

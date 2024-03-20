@@ -50,6 +50,4 @@ fclean: clean
 
 re: fclean all
 
-.SILENT: test
-
 .PHONY: all clean fclean re bonus

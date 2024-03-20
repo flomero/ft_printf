@@ -6,12 +6,11 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:26:45 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/20 00:08:21 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:22:54 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ft_print_decnum_minus(t_format *format_info, long long num, int numlen)
 {

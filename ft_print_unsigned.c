@@ -6,12 +6,11 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:30:10 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 23:57:31 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:23:50 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ft_putunbr_fd(unsigned int n, int fd)
 {

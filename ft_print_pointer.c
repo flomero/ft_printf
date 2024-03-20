@@ -6,12 +6,11 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 12:57:02 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 12:42:37 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:23:01 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 int	ft_numlen_base(unsigned long n, int base)
 {

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:11 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/20 12:21:15 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:29:38 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,5 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-
-// EXTRA FOR PRINTF
-int					*get_write_error(void);
-void				set_write_error(int status);
 
 #endif

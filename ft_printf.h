@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:06:36 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/20 12:20:46 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:31:49 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,17 @@ int			ft_print_percent(t_format *format_info);
 // Helper functions
 int			ft_get_numlen(int i);
 int			ft_power(int nb, int power);
-int			ft_putnchr_fd(char c, int n, int fd);
 int			ft_get_hexlen(unsigned int i);
+
+// Put functions
+int			ft_putchar_p(char c, int fd);
+int			ft_putstr_p(char *s, int fd);
+int			ft_putnbr_p(int n, int fd);
+int			ft_putnchr_fd(char c, int n, int fd);
 int			ft_putnbr_base(long nbr, char *base);
+
+// Write error functions
+void		set_write_error(int status);
+int			*get_write_error(void);
 
 #endif

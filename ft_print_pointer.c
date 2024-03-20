@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 12:57:02 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/20 11:23:01 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:34:52 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_putnchr_fd(char c, int n, int fd)
 
 	size = 0;
 	while (n-- > 0)
-		size += ft_putchar_fd(c, fd);
+		size += ft_putchar_p(c, fd);
 	return (size);
 }
 
@@ -43,10 +43,10 @@ int	ft_print_pointer_hex(unsigned long pointer)
 	if (pointer >= 16)
 	{
 		size += ft_print_pointer_hex(pointer / 16);
-		size += ft_putchar_fd("0123456789abcdef"[pointer % 16], 1);
+		size += ft_putchar_p("0123456789abcdef"[pointer % 16], 1);
 	}
 	else
-		size += ft_putchar_fd("0123456789abcdef"[pointer], 1);
+		size += ft_putchar_p("0123456789abcdef"[pointer], 1);
 	return (size);
 }
 
@@ -55,7 +55,7 @@ int	ft_print_pointer_minus(t_format *format, unsigned long pointer)
 	int	size;
 
 	size = 0;
-	size += ft_putstr_fd("0x", 1);
+	size += ft_putstr_p("0x", 1);
 	size += ft_putnchr_fd('0', format->precision - size, 1);
 	if (!(format->precision == 0 && pointer == 0))
 		size += ft_print_pointer_hex(pointer);
@@ -79,7 +79,7 @@ int	ft_print_pointer(t_format *format, va_list args)
 	else
 	{
 		size += ft_putnchr_fd(' ', format->width - numlen - 2, 1);
-		size += ft_putstr_fd("0x", 1);
+		size += ft_putstr_p("0x", 1);
 		size += ft_putnchr_fd('0', format->precision - (size + 2), 1);
 		if (!(format->precision == 0 && pointer == 0))
 			size += ft_print_pointer_hex(pointer);

@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:27:00 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 19:27:14 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:34:38 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int	ft_print_percent(t_format *format_info)
 
 	size = 0;
 	if (format_info->flags.minus)
-		size += ft_putchar_fd('%', 1);
+		size += ft_putchar_p('%', 1);
 	while (format_info->width-- > 1)
 	{
 		if (format_info->flags.zero && !format_info->flags.minus)
-			size += ft_putchar_fd('0', 1);
+			size += ft_putchar_p('0', 1);
 		else
-			size += ft_putchar_fd(' ', 1);
+			size += ft_putchar_p(' ', 1);
 	}
 	if (!format_info->flags.minus)
-		size += ft_putchar_fd('%', 1);
+		size += ft_putchar_p('%', 1);
 	return (size);
 }

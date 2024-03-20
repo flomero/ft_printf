@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 00:05:17 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/20 00:37:20 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:34:38 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_print_loop(const char *format, va_list args)
 				new = ft_print_format(format, &i, args);
 		}
 		else
-			new = ft_putchar_fd(format[i++], 1);
+			new = ft_putchar_p(format[i++], 1);
 		if (new == -1)
 			return (-1);
 		size += new;

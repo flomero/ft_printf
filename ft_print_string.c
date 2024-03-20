@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:13:22 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 23:53:47 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:34:38 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_putnstr_fd(char *str, int n, int fd)
 	i = 0;
 	while (i < n && str[i] != '\0')
 	{
-		ft_putchar_fd(str[i], fd);
+		ft_putchar_p(str[i], fd);
 		i++;
 	}
 	return (i);
@@ -39,7 +39,7 @@ int	ft_print_string_precision(t_format *format_info, char *str, int *space)
 	while (format_info->width > format_info->precision
 		&& format_info->width > *space)
 	{
-		size += ft_putchar_fd(' ', 1);
+		size += ft_putchar_p(' ', 1);
 		format_info->width--;
 	}
 	return (size);
@@ -62,9 +62,9 @@ int	ft_print_string(t_format *format_info, va_list args)
 	while ((size_t)format_info->width > ft_strlen(str))
 	{
 		if (format_info->flags.zero && !format_info->flags.minus)
-			size += ft_putchar_fd('0', 1);
+			size += ft_putchar_p('0', 1);
 		else
-			size += ft_putchar_fd(' ', 1);
+			size += ft_putchar_p(' ', 1);
 		format_info->width--;
 	}
 	if (!format_info->flags.minus)

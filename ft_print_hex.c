@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:01:14 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/20 00:03:07 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:34:52 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_print_hex_minus(t_format *format_info, unsigned int num, char *base,
 	int	size;
 
 	size = 0;
-	size += ft_putstr_fd(prefix, 1);
+	size += ft_putstr_p(prefix, 1);
 	size += ft_putnchr_fd('0', format_info->precision - ft_get_hexlen(num), 1);
 	size += ft_putnbr_base(num, base);
 	size += ft_putnchr_fd(' ', format_info->width - size, 1);
@@ -35,7 +35,7 @@ int	ft_print_hex_nominus(t_format *format_info, unsigned int num, char *base,
 	size = 0;
 	if (format_info->flags.zero && format_info->precision == -1)
 	{
-		size += ft_putstr_fd(prefix, 1);
+		size += ft_putstr_p(prefix, 1);
 		zeros = format_info->width - ft_get_hexlen(num) - ft_strlen(prefix);
 		size += ft_putnchr_fd('0', zeros, 1);
 	}
@@ -46,7 +46,7 @@ int	ft_print_hex_nominus(t_format *format_info, unsigned int num, char *base,
 		else
 			spaces = format_info->width - ft_get_hexlen(num);
 		size += ft_putnchr_fd(' ', spaces - ft_strlen(prefix), 1);
-		size += ft_putstr_fd(prefix, 1);
+		size += ft_putstr_p(prefix, 1);
 	}
 	size += ft_putnchr_fd('0', format_info->precision - ft_get_hexlen(num), 1);
 	size += ft_putnbr_base(num, base);
@@ -76,7 +76,7 @@ int	ft_print_lowerhex(t_format *format_info, va_list args)
 	if (format_info->precision == 0 && num == 0)
 	{
 		while (format_info->width-- > 0)
-			size += ft_putchar_fd(' ', 1);
+			size += ft_putchar_p(' ', 1);
 		return (size);
 	}
 	if (format_info->flags.alternative && num != 0)
@@ -96,7 +96,7 @@ int	ft_print_upperhex(t_format *format_info, va_list args)
 	if (format_info->precision == 0 && num == 0)
 	{
 		while (format_info->width-- > 0)
-			size += ft_putchar_fd(' ', 1);
+			size += ft_putchar_p(' ', 1);
 		return (size);
 	}
 	if (format_info->flags.alternative && num != 0)

@@ -6,12 +6,11 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 12:58:34 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/18 14:43:36 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:22:27 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <limits.h>
+#include "ft_printf.h"
 
 static int	check_errors(char *base);
 

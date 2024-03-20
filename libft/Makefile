@@ -39,7 +39,6 @@ CFILES := \
 	ft_putstr_fd.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
-	ft_putnbr_base.c
 
 BONUS_CFILES := \
 	ft_lstnew_bonus.c \

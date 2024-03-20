@@ -6,7 +6,7 @@
 /*   By: flfische <flfische@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 17:47:11 by flfische          #+#    #+#             */
-/*   Updated: 2024/03/19 22:25:25 by flfische         ###   ########.fr       */
+/*   Updated: 2024/03/20 12:21:15 by flfische         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
 // EXTRA FOR PRINTF
-int					ft_putnbr_base(long nbr, char *base);
 int					*get_write_error(void);
 void				set_write_error(int status);
 
